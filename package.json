@@ -11,12 +11,20 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@mui/material": "^6.1.2",
+    "@mui/x-date-pickers": "^7.19.0",
     "@remix-run/node": "^2.12.1",
     "@remix-run/react": "^2.12.1",
     "@remix-run/serve": "^2.12.1",
+    "date-fns": "^4.1.0",
+    "dayjs": "^1.11.13",
     "isbot": "^4.1.0",
+    "keep-react": "^1.5.0",
+    "phosphor-react": "^1.4.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-datepicker": "^7.4.0",
+    "react-dom": "^18.2.0",
+    "react-tailwindcss-datepicker": "^1.7.2"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.12.1",
