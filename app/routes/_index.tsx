@@ -16,7 +16,7 @@ export default function Index() {
 
 
   const [expenseList, setExpenseList] = useState<ExpenseModel[]>([])
-  //let expenseList: ExpenseModel[] = [];
+
 
 
 
@@ -24,17 +24,19 @@ export default function Index() {
 
     if (category === '' || price === 0) {
       alert("Please filled in all the required information!")
-    }
-    let expense: ExpenseModel = {
-      category: category,
-      date: (date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear()).toString(),
-      price: price
-    }
+    } else {
+      let expense: ExpenseModel = {
+        category: category,
+        date: (date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear()).toString(),
+        price: price
+      }
 
-    setExpenseList(prevExpense => [...prevExpense, expense])
-    setDate(new Date())
-    setCategory('')
-    setPrice(0)
+      setExpenseList(prevExpense => [...prevExpense, expense])
+      setDate(new Date())
+      setCategory('')
+      setPrice(0)
+
+    }
   }
 
 
