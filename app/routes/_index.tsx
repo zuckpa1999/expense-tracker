@@ -4,15 +4,21 @@ import ReactDatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css'
 import "./style.css"
 import ExpenseList from "./ExpenseList";
-
+import { ExpenseModel } from "./ExpenseList";
 
 export default function Index() {
 
-  const [date, setDate] = useState<Date | null>(new Date());
+  const [date, setDate] = useState(new Date());
   const DatePicker = (ReactDatePicker as unknown as { default: typeof ReactDatePicker }).default ?? ReactDatePicker;
 
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState(0);
+
+  const expense: ExpenseModel = {
+    category: category,
+    date: (date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear()).toString(),
+    price: price
+  }
 
   return (
     <div className="flex flex-col   justify-center items-center  h-screen">
@@ -71,7 +77,8 @@ export default function Index() {
         </a>
       </div>
 
-      <ExpenseList />
+      <ExpenseList expense={expense} />
+      {/* <ExpenseList catetory= date={date} price = {price} /> */}
 
 
     </div>
