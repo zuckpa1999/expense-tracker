@@ -2,17 +2,20 @@ import { useState } from "react";
 //import DatePicker from "react-datepicker";
 import ReactDatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css'
+import "./style.css"
+import ExpenseList from "./ExpenseList";
+
 
 export default function Index() {
 
-  //  const [date, setDate] = useState(new Date());
   const [date, setDate] = useState<Date | null>(new Date());
-
-
   const DatePicker = (ReactDatePicker as unknown as { default: typeof ReactDatePicker }).default ?? ReactDatePicker;
 
+  const [category, setCategory] = useState('');
+  const [price, setPrice] = useState(0);
+
   return (
-    <div className="flex flex-col  h-screen justify-center items-center">
+    <div className="flex flex-col   justify-center items-center  h-screen">
       <h1 className="text-blue-600 text-3xl mb-5">Expense Tracker</h1>
 
       <div>
@@ -24,7 +27,8 @@ export default function Index() {
           placeholder="Food"
           className="block w-auto rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1
          ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset
-          focus:ring-indigo-600 sm:text-sm sm:leading-6 mb-1"
+          focus:ring-indigo-600  mb-1"
+          onChange={(e) => setCategory(e.target.value)}
         />
       </div>
 
@@ -41,22 +45,34 @@ export default function Index() {
             placeholder="0.00"
             className="block w-auto rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1
          ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset
-          focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          focus:ring-indigo-600"
+            onChange={(e) => setPrice(parseFloat(e.target.value))}
           />
         </div>
       </div>
 
-      <div className="mt-3">
+      <div className="mt-3 mr-8">
         <h1 className="font-bold">Date</h1>
-        <DatePicker className="mr-10" showIcon selected={date} onChange={(date) => setDate(date)} />
+        <DatePicker className="mr-10 ring-1 ring-inset ring-gray-300 rounded-md"
+          showIcon selected={date} onChange={(date) => setDate(date)} />
+
       </div>
-      <div className="mt-5" onClick={() => alert("date" + date)}>
+
+
+      <div className="mt-10 mb-10" onClick={() => {
+        console.log("date" + date)
+        console.log("category" + category)
+        console.log("price" + price)
+      }}>
         <a className="px-6 py-2 min-w-[120px] text-center text-white bg-blue-600 border
          border-blue-600 rounded active:text-blue-500 hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring"
         >
           Add Expense
         </a>
       </div>
+
+      <ExpenseList />
+
 
     </div>
   );
