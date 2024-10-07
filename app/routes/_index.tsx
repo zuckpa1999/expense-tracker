@@ -14,11 +14,29 @@ export default function Index() {
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState(0);
 
-  const expense: ExpenseModel = {
-    category: category,
-    date: (date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear()).toString(),
-    price: price
+
+  const [expenseList, setExpenseList] = useState<ExpenseModel[]>([])
+  //let expenseList: ExpenseModel[] = [];
+
+
+
+  function onExpenseAdded() {
+
+    if (category === '' || price === 0) {
+      alert("Please filled in all the required information!")
+    }
+    let expense: ExpenseModel = {
+      category: category,
+      date: (date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear()).toString(),
+      price: price
+    }
+
+    setExpenseList(prevExpense => [...prevExpense, expense])
+    setDate(new Date())
+    setCategory('')
+    setPrice(0)
   }
+
 
   return (
     <div className="flex flex-col   justify-center items-center  h-screen">
@@ -60,16 +78,12 @@ export default function Index() {
       <div className="mt-3 mr-8">
         <h1 className="font-bold">Date</h1>
         <DatePicker className="mr-10 ring-1 ring-inset ring-gray-300 rounded-md"
-          showIcon selected={date} onChange={(date) => setDate(date)} />
+          showIcon selected={date} onChange={(date) => date && setDate(date)} />
 
       </div>
 
 
-      <div className="mt-10 mb-10" onClick={() => {
-        console.log("date" + date)
-        console.log("category" + category)
-        console.log("price" + price)
-      }}>
+      <div className="mt-10 mb-10" onClick={onExpenseAdded}>
         <a className="px-6 py-2 min-w-[120px] text-center text-white bg-blue-600 border
          border-blue-600 rounded active:text-blue-500 hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring"
         >
@@ -77,9 +91,16 @@ export default function Index() {
         </a>
       </div>
 
-      <ExpenseList expense={expense} />
-      {/* <ExpenseList catetory= date={date} price = {price} /> */}
+      {expenseList.length > 0 &&
+        <h1 className="font-bold">Recent expenses</h1>
+      }
+      {expenseList.length > 0 &&
+        expenseList.map((ex, index) => (
+          <ExpenseList key={index} expense={ex} />
+        ))
 
+
+      }
 
     </div>
   );

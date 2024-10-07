@@ -13,7 +13,7 @@ export interface ExpenseProps {
 export default function ExpenseList(props: ExpenseProps) {
     const expense = props.expense
     return (
-        <div className="flex container  p-5 bg-white border border-gray-300 rounded-xl">
+        <div className="flex container  p-5 bg-white border border-gray-300 rounded-xl my-2">
 
             <div className="flex flex-col">
                 <h1 className="mb-2">{expense.category}</h1>
