@@ -111,14 +111,16 @@ export default function Index() {
             </a>
           </button>
         </form>
-        {expenseList.length > 0 &&
-          <h1 className="font-bold text-lg">Recent expenses</h1>
-        }
-        {expenseList.length > 0 &&
-          expenseList.map((ex, index) => (
-            <ExpenseList key={index} expense={ex} />
-          ))
-        }
+        <div className="ml-8">
+          {expenseList.length > 0 &&
+            <h1 className="font-bold text-lg">Recent expenses</h1>
+          }
+          {expenseList.length > 0 &&
+            expenseList.map((ex, index) => (
+              <ExpenseList key={index} expense={ex} />
+            ))
+          }
+        </div>
       </div>
     </div>
 
