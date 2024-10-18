@@ -54,8 +54,8 @@ export default function Index() {
   }
 
   return (
-    <div style={styles.pageContainer}>
-      <div style={styles.scrollContainer}>
+    <div style={styles.scrollContainer}>
+      <div >
         <form className="flex flex-col   justify-center items-center  h-screen -mb-40"
           onSubmit={onSubmit}>
           <h1 className="text-blue-600 text-3xl mb-5">Expense Tracker</h1>
@@ -128,24 +128,8 @@ export default function Index() {
 }
 
 const styles: any = {
-  pageContainer: {
-    height: '100vh',   // Full height of the viewport
-    overflow: 'hidden', // Prevent scrolling on the whole page, only scroll the container
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f0f0f0',
-  },
   scrollContainer: {
-    width: '100%',   // Adjust the width as needed
-    height: '100vh', // Use viewport height to ensure the container doesn't exceed the page size
     overflowY: 'scroll', // Enable vertical scrolling
-    border: '1px solid #ccc',
-    padding: '10px',
-    backgroundColor: '#fff'
-  },
-  content: {
-    height: '100%', // Set content height larger than the container to enable scrolling
   },
 };
 
