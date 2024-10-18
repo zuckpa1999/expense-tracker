@@ -5,13 +5,14 @@ import 'react-datepicker/dist/react-datepicker.css'
 import "./style.css"
 import ExpenseList from "./ExpenseList";
 import { ExpenseModel } from "./ExpenseList";
+import MyComponent from "react-full-page-scroller"
 
 export default function Index() {
   const [date, setDate] = useState<Date>(new Date());
   const DatePicker = (ReactDatePicker as unknown as { default: typeof ReactDatePicker }).default ?? ReactDatePicker;
 
   const [category, setCategory] = useState('');
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState(0.1);
 
 
   const [expenseList, setExpenseList] = useState<ExpenseModel[]>([])
@@ -68,7 +69,7 @@ export default function Index() {
     setExpenseList(prevExpense => [...prevExpense, expense])
     setDate(new Date())
     setCategory('')
-    setPrice(0)
+    setPrice(0.1)
     console.log("expenseList.length" + expenseList.length);
 
     expenseList.forEach(e => console.log("e.category" + e.category + "e.date" + e.date + "e.price" + e.price))
@@ -98,71 +99,98 @@ export default function Index() {
 
 
   return (
-    <form className="flex flex-col   justify-center items-center  h-screen"
-      onSubmit={onSubmit}>
-      <h1 className="text-blue-600 text-3xl mb-5">Expense Tracker</h1>
+    <div style={styles.pageContainer}>
+      <div style={styles.scrollContainer}>
+        <form className="flex flex-col   justify-center items-center  h-screen -mb-40"
+          onSubmit={onSubmit}>
+          <h1 className="text-blue-600 text-3xl mb-5">Expense Tracker</h1>
 
-      <div>
-        <h1 className="font-bold mr-48 mb-2">Category</h1>
-        <input
-          id="category"
-          name="category"
-          type="text"
-          placeholder="Food"
-          value={category}
-          className="block w-auto rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1
+          <div>
+            <h1 className="font-bold mr-48 mb-2">Category</h1>
+            <input
+              id="category"
+              name="category"
+              type="text"
+              placeholder="Food"
+              value={category}
+              className="block w-auto rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1
          ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset
           focus:ring-indigo-600  mb-1"
-          onChange={(e) => setCategory(e.target.value)}
-        />
-      </div>
-
-      <div>
-        <h1 className="font-bold mr-48">Amount</h1>
-        <div className="relative mt-2 rounded-md shadow-sm">
-          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-            <span className="text-gray-500 sm:text-sm">฿</span>
+              onChange={(e) => setCategory(e.target.value)}
+            />
           </div>
-          <input
-            id="price"
-            name="price"
-            placeholder="0.1"
-            value={price}
-            type='number'
-            step="0.1"
-            className="block w-auto rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1
+
+          <div>
+            <h1 className="font-bold mr-48">Amount</h1>
+            <div className="relative mt-2 rounded-md shadow-sm">
+              <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                <span className="text-gray-500 sm:text-sm">฿</span>
+              </div>
+              <input
+                id="price"
+                name="price"
+                placeholder="0.1"
+                value={price}
+                type='number'
+                step="0.1"
+                className="block w-auto rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1
          ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset
           focus:ring-indigo-600"
-            onChange={(e) => setPrice(parseFloat(e.target.value))}
-          />
-        </div>
-      </div>
+                onChange={(e) => setPrice(parseFloat(e.target.value))}
+              />
+            </div>
+          </div>
 
-      <div className="mt-3 mr-8">
-        <h1 className="font-bold">Date</h1>
-        <DatePicker className="mr-10 ring-1 ring-inset ring-gray-300 rounded-md"
-          showIcon selected={date} onChange={(date) => date && setDate(date)} />
+          <div className="mt-3 mr-8">
+            <h1 className="font-bold">Date</h1>
+            <DatePicker className="mr-10 ring-1 ring-inset ring-gray-300 rounded-md"
+              showIcon selected={date} onChange={(date) => date && setDate(date)} />
 
-      </div>
+          </div>
 
-      <button className="mt-10 mb-10">
-        <a className="px-6 py-2 min-w-[120px] text-center text-white bg-blue-600 border
+          <button className="mt-10 mb-10">
+            <a className="px-6 py-2 min-w-[120px] text-center text-white bg-blue-600 border
          border-blue-600 rounded active:text-blue-500 hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring"
-        >
-          Add Expense
-        </a>
-      </button>
-      {expenseList.length > 0 &&
-        <h1 className="font-bold text-lg">Recent expenses</h1>
-      }
-      {expenseList.length > 0 &&
-        expenseList.map((ex, index) => (
-          <ExpenseList key={index} expense={ex} />
-        ))
+            >
+              Add Expense
+            </a>
+          </button>
+        </form>
+        {expenseList.length > 0 &&
+          <h1 className="font-bold text-lg">Recent expenses</h1>
+        }
+        {expenseList.length > 0 &&
+          expenseList.map((ex, index) => (
+            <ExpenseList key={index} expense={ex} />
+          ))
 
 
-      }
-    </form>
+        }
+      </div>
+    </div>
+
   );
 }
+
+const styles: any = {
+  pageContainer: {
+    height: '100vh',   // Full height of the viewport
+    overflow: 'hidden', // Prevent scrolling on the whole page, only scroll the container
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f0f0f0',
+  },
+  scrollContainer: {
+    width: '100%',   // Adjust the width as needed
+    height: '100vh', // Use viewport height to ensure the container doesn't exceed the page size
+    overflowY: 'scroll', // Enable vertical scrolling
+    border: '1px solid #ccc',
+    padding: '10px',
+    backgroundColor: '#fff'
+  },
+  content: {
+    height: '100%', // Set content height larger than the container to enable scrolling
+  },
+};
 
