@@ -11,7 +11,7 @@ export default function Index() {
   const DatePicker = (ReactDatePicker as unknown as { default: typeof ReactDatePicker }).default ?? ReactDatePicker;
 
   const [category, setCategory] = useState('');
-  const [price, setPrice] = useState(NaN);
+  const [price, setPrice] = useState(0);
 
 
   const [expenseList, setExpenseList] = useState<ExpenseModel[]>([])
@@ -98,7 +98,8 @@ export default function Index() {
 
 
   return (
-    <form className="flex flex-col   justify-center items-center  h-screen" onSubmit={onSubmit}>
+    <form className="flex flex-col   justify-center items-center  h-screen"
+      onSubmit={onSubmit}>
       <h1 className="text-blue-600 text-3xl mb-5">Expense Tracker</h1>
 
       <div>
@@ -151,12 +152,8 @@ export default function Index() {
           Add Expense
         </a>
       </button>
-
-
-      <h1>category {category}</h1>
-      <h1>price {price}</h1>
       {expenseList.length > 0 &&
-        <h1 className="font-bold">Recent expenses</h1>
+        <h1 className="font-bold text-lg">Recent expenses</h1>
       }
       {expenseList.length > 0 &&
         expenseList.map((ex, index) => (
