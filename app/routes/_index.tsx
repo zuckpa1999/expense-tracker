@@ -1,11 +1,9 @@
 import { useState } from "react";
-//import DatePicker from "react-datepicker";
 import ReactDatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css'
 import "./style.css"
 import ExpenseList from "./ExpenseList";
 import { ExpenseModel } from "./ExpenseList";
-import MyComponent from "react-full-page-scroller"
 
 export default function Index() {
   const [date, setDate] = useState<Date>(new Date());
@@ -16,28 +14,6 @@ export default function Index() {
 
 
   const [expenseList, setExpenseList] = useState<ExpenseModel[]>([])
-
-
-  function onExpenseAdded() {
-
-    // if (category === '' || price === 0) {
-    //   alert("Please filled in all the required information!")
-    // } else {
-    //   let expense: ExpenseModel = {
-    //     category: category,
-    //     date: (date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear()).toString(),
-    //     price: price
-    //   }
-
-    //   setExpenseList(prevExpense => [...prevExpense, expense])
-    //   setDate(new Date())
-    //   setCategory('')
-    //   setPrice(0)
-
-    // }
-
-
-  }
 
   async function onSubmit(e: any) {
     e.preventDefault();
@@ -76,27 +52,6 @@ export default function Index() {
     e.target.reset();
 
   }
-
-  // function onChangeCategory(e: any) {
-
-  //   const regEx = /^[A-Za-z]+$/;
-  //   console.log("e.target.value" + e.target.value);
-  //   if (e.target.value === "" || regEx.test(e.target.value))
-  //     setCategory(e.target.value);
-  // }
-
-  // function onChangePrice(e: any) {
-
-  //   const regEx = /^[+-]?\d+(\.\d+)?$/;
-  //   console.log("e.target.value" + e.target.value);
-  //   console.log("price" + price);
-
-  //   if (e.target.value === 0 || regEx.test(e.target.value))
-  //     setPrice(parseFloat(e.target.value))
-  // }
-
-
-
 
   return (
     <div style={styles.pageContainer}>
@@ -163,8 +118,6 @@ export default function Index() {
           expenseList.map((ex, index) => (
             <ExpenseList key={index} expense={ex} />
           ))
-
-
         }
       </div>
     </div>
